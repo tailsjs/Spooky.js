@@ -1,0 +1,23 @@
+{
+  "name": "spooky.js",
+  "version": "1.0.0",
+  "description": "Simple Brawl Stars private server for v22!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "tailsjs",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "net": "^1.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0"
+  }
+}
