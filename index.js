@@ -7,7 +7,6 @@ const Player = require("./Logic/Player")
 const PORT = 9339
 
 server.on('connection', async (client) => {
-  client.setNoDelay(true)
   client.log = function (text) {
     return console.log(`[${this.remoteAddress.split(':').slice(-1)}] >> ${text}`)
   }

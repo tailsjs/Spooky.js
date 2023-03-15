@@ -1,6 +1,6 @@
 {
   "name": "spooky.js",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Simple Brawl Stars private server for v22!",
   "main": "index.js",
   "scripts": {
