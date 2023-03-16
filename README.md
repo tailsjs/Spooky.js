@@ -19,6 +19,7 @@ Simple Brawl Stars private server for version 22 (Halloween update 2019!)<br>
 
 ## Changelogs
 
+* 2023.03.17 - Added support for client commands, added PlayerProfile.
 * 2023.03.16 - Fixed OwnHomeData, added prototype of rooms.
 
 ![screen](/Screens/Screen.jpg)

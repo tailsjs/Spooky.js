@@ -22,7 +22,7 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(999999)
 
     this.writeDataReference(28, 45)
-    this.writeDataReference(43, 0)
+    this.writeDataReference(43, 10)
 
     this.writeVInt(0) // PlayedGamemodesArray
 
@@ -33,7 +33,7 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(0) // UnlockedSkins
 
     this.writeVInt(0)
-    this.writeVInt(0)
+    this.writeVInt(37500)
     this.writeVInt(0)
 
     this.writeBoolean(false)

@@ -29,7 +29,7 @@ class TeamMessage extends PiranhaMessage {
         this.writeLong(0, this.player.lowID)
 
         this.writeDataReference(16, this.player.homeBrawler)
-        this.writeVInt(0) // Skin
+        this.writeDataReference(29, this.player.skin) // Skin
 
         this.writeVInt(1250)
         this.writeVInt(1250)

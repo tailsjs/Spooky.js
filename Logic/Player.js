@@ -8,6 +8,7 @@ class Player {
         inTeam: false,
         mapID: 0
     }
+    skin = 0
 
     maps = [ // le tailed laziness gets in the way put it into other class :upside_down:
         {
@@ -47,6 +48,8 @@ class Player {
             length: 86400
         }
     ]
+
+    latency = 0
 
     constructor(){
         
