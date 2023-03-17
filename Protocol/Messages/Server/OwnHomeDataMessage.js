@@ -1,4 +1,8 @@
 const PiranhaMessage = require('../../PiranhaMessage')
+const Skins = require('../../../CSVParser/Skins')
+const Cards = require("../../../CSVParser/Cards")
+const skills = Cards.getAllSkills(4)
+const skins = Skins.getAllSkins()
 
 class OwnHomeDataMessage extends PiranhaMessage {
   constructor (client, player) {
@@ -21,16 +25,19 @@ class OwnHomeDataMessage extends PiranhaMessage {
 
     this.writeVInt(999999)
 
-    this.writeDataReference(28, 45)
-    this.writeDataReference(43, 10)
+    this.writeDataReference(28, this.player.thumbnail)
+    this.writeDataReference(43, this.player.nameColor)
 
     this.writeVInt(0) // PlayedGamemodesArray
 
     this.writeVInt(1) // SelectedSkins
-    this.writeVInt(29)
-    this.writeVInt(0)
+    this.writeDataReference(29, this.player.skin)
 
-    this.writeVInt(0) // UnlockedSkins
+    this.writeVInt(skins.length) // UnlockedSkins
+
+    for(let skin of skins){
+      this.writeDataReference(29, skin)
+    }
 
     this.writeVInt(0)
     this.writeVInt(37500)
@@ -60,7 +67,36 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(228)
     this.writeVInt(0)
 
-    this.writeVInt(0) // Shop. Later, ok?
+    this.writeVInt(this.player.offers.length) // Shop.
+
+    for(let offer of this.player.offers){
+      this.writeVInt(offer.includes.length)
+      for(let item of offer.includes){
+        this.writeVInt(item.id)
+        this.writeVInt(item.multiplier)
+        this.writeDataReference(item.dataRef[0], item.dataRef[1])
+        this.writeVInt(0)
+      }
+
+      this.writeVInt(offer.currency)
+
+      this.writeVInt(offer.cost)
+      this.writeVInt(offer.timer)
+
+      this.writeVInt(1)
+      this.writeVInt(100)
+      this.writeBoolean(offer.purchased)
+
+      this.writeBoolean(false)
+      this.writeVInt(offer.type)
+      this.writeBoolean(false)
+      this.writeVInt(offer.oldCost) // OldPrice
+
+      this.writeInt(0)
+      this.writeString(offer.name)
+
+      this.writeBoolean(false)
+    }
 
     this.writeVInt(0) // AdsArray
 
@@ -75,7 +111,7 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeDataReference(16, this.player.homeBrawler)
 
     this.writeString('RU')
-    this.writeString('t.me/projectsurge')
+    this.writeString(this.player.authorCode)
 
     this.writeVInt(0) // IntValueArray
     this.writeVInt(0) // CooldownEntry
@@ -99,12 +135,12 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(0) // Array
 
     this.writeVInt(this.player.maps.length)
-    for(let map of this.player.maps){
+    for (const map of this.player.maps) {
       this.writeVInt(map.slotID)
     }
-    
+
     this.writeVInt(this.player.maps.length)
-    for(let map of this.player.maps){
+    for (const map of this.player.maps) {
       this.writeVInt(this.player.maps.indexOf(map) + 1)
       this.writeVInt(map.slotID)
       this.writeVInt(0)
@@ -122,51 +158,49 @@ class OwnHomeDataMessage extends PiranhaMessage {
       this.writeVInt(0)
 
       this.writeBoolean(map.modifier != 0)
-      if(map.modifier != 0){
+      if (map.modifier != 0) {
         this.writeVInt(map.modifier)
       }
-      
+
       this.writeVInt(0)
     }
 
     this.writeVInt(0) // Coming events array
-    
-    
+
     this.writeVInt(8)
-    for(let i of [20, 35, 75, 140, 290, 480, 800, 1250]){
-        this.writeVInt(i)
+    for (const i of [20, 35, 75, 140, 290, 480, 800, 1250]) {
+      this.writeVInt(i)
     }
 
     this.writeVInt(8)
-    for(let i of [1, 2, 3, 4, 5, 10, 15, 20]){
-        this.writeVInt(i)
+    for (const i of [1, 2, 3, 4, 5, 10, 15, 20]) {
+      this.writeVInt(i)
     }
 
     this.writeVInt(3)
-    for(let i of [10, 30, 80]){
-        this.writeVInt(i)
+    for (const i of [10, 30, 80]) {
+      this.writeVInt(i)
     }
 
     this.writeVInt(3)
-    for(let i of [6, 20, 60]){
-        this.writeVInt(i)
-    }
-
-    this.writeVInt(4)
-    for(let i of [20, 50, 140, 280]){
+    for (const i of [6, 20, 60]) {
       this.writeVInt(i)
     }
 
     this.writeVInt(4)
-    for(let i of [150, 400, 1200, 2600]){
+    for (const i of [20, 50, 140, 280]) {
       this.writeVInt(i)
     }
 
+    this.writeVInt(4)
+    for (const i of [150, 400, 1200, 2600]) {
+      this.writeVInt(i)
+    }
 
     this.writeVInt(0)
     this.writeVInt(1488) // Max tokens
     this.writeVInt(20)
-    
+
     this.writeVInt(8640)
     this.writeVInt(10)
     this.writeVInt(5)
@@ -178,7 +212,7 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(0)
 
     this.writeVInt(1)
-    this.writeLong(1, 41000008)
+    this.writeLong(1, 41000000 + this.player.themeId)
 
     this.writeLong(0, this.player.lowID)
 
@@ -188,7 +222,6 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeBoolean(true) // isSeen
     this.writeInt(0) // Time ago was received
     this.writeString('Spooky.js started!') // Message
-
     this.writeVInt(1) // sentBy (0 - Tech. Support, 1 - System)
 
     this.writeBoolean(true)
@@ -206,8 +239,8 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(8)
 
     this.writeVInt(34)
-    
-    for(let i of this.player.cards){
+
+    for (const i of this.player.cards) {
       this.writeDataReference(23, i)
       this.writeVInt(1)
     }
@@ -225,14 +258,13 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(777) // StarPoints
 
     this.writeVInt(31)
-    for(let i = 0; i < 31; i++){
+    for (let i = 0; i < 31; i++) {
       this.writeDataReference(16, i)
       this.writeVInt(1250)
     }
-    
 
     this.writeVInt(31)
-    for(let i = 0; i < 31; i++){
+    for (let i = 0; i < 31; i++) {
       this.writeDataReference(16, i)
       this.writeVInt(1250)
     }
@@ -240,21 +272,25 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(0) // UnknownArray
 
     this.writeVInt(31)
-    for(let i = 0; i < 31; i++){
+    for (let i = 0; i < 31; i++) {
       this.writeDataReference(16, i)
       this.writeVInt(1410)
     }
 
     this.writeVInt(31)
-    for(let i = 0; i < 31; i++){
+    for (let i = 0; i < 31; i++) {
       this.writeDataReference(16, i)
       this.writeVInt(8)
     }
 
-    this.writeVInt(0) // BrawlerSkillsSelectedArray. Later on!
-    
+    this.writeVInt(skills.length)
+    for(let skill of skills){
+      this.writeDataReference(23, skill)
+      this.writeVInt(1)
+    }
+
     this.writeVInt(31)
-    for(let i = 0; i < 31; i++){
+    for (let i = 0; i < 31; i++) {
       this.writeDataReference(16, i)
       this.writeVInt(0)
     }

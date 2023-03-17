@@ -9,6 +9,30 @@ class Player {
         mapID: 0
     }
     skin = 0
+    skills = 76
+    thumbnail = 45
+    nameColor = 10
+    themeId = 8
+    authorCode = 't.me/projectsurge'
+
+    offers = [
+        {
+            name: "Spooky.js!",
+            timer: 86400,
+            oldCost: 1488,
+            cost: 1,
+            currency: 0,
+            type: 0,
+            purchased: false,
+            includes: [
+                {
+                    id: 10,
+                    multiplier: 1337,
+                    dataRef: [0, 0]
+                }
+            ]
+        }
+    ]
 
     maps = [ // le tailed laziness gets in the way put it into other class :upside_down:
         {

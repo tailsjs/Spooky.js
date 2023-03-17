@@ -19,7 +19,7 @@ class TeamCreateMessage extends PiranhaMessage {
         inTeam: true,
         mapID: this.player.maps.find(e => e.slotID == this.slot).mapID
     }
-    console.log(this.player.team)
+
     new TeamMessage(this.client, this.player).send()
   }
 }

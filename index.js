@@ -2,7 +2,7 @@ const net = require('net')
 const MessageFactory = require('./Protocol/MessageFactory')
 const server = new net.Server()
 const Messages = new MessageFactory()
-const Player = require("./Logic/Player")
+const Player = require('./Logic/Player')
 
 const PORT = 9339
 
@@ -13,8 +13,8 @@ server.on('connection', async (client) => {
   }
 
   client.log('A wild connection appeard!')
-  
-  const packets = Messages.getPackets();
+
+  const packets = Messages.getPackets()
 
   client.player = new Player()
 
@@ -57,7 +57,6 @@ server.on('connection', async (client) => {
 server.once('listening', () => console.log(`[SERVER] >> Spooky.js started on ${PORT} port!`))
 server.listen(PORT)
 
+process.on('uncaughtException', e => console.log(e))
 
-process.on("uncaughtException", e => console.log(e));
-
-process.on("unhandledRejection", e => console.log(e));
+process.on('unhandledRejection', e => console.log(e))

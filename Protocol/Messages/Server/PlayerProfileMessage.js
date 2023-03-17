@@ -45,8 +45,8 @@ class PlayerProfileMessage extends PiranhaMessage {
 
     this.writeString(this.player.name)
     this.writeVInt(100)
-    this.writeVInt(28000045)
-    this.writeVInt(43000010)
+    this.writeVInt(28000000 + this.player.thumbnail)
+    this.writeVInt(43000000 + this.player.nameColor)
 
     this.writeBoolean(false) // alliance
   }

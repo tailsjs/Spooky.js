@@ -1,28 +1,27 @@
-const fs = require("fs");
+const fs = require('fs')
 
-class CommandManager{
-    constructor(){
-        this.commands = {}
+class CommandManager {
+  constructor () {
+    this.commands = {}
 
-        fs.readdir('./Protocol/Commands/Client', (err, files) => {
-            if(err)console.log(err)
-            files.forEach(e => {
-                let Command = require(`./Commands/Client/${e.replace(".js", "")}`);
-                let commandClass = new Command()
+    fs.readdir('./Protocol/Commands/Client', (err, files) => {
+      if (err)console.log(err)
+      files.forEach(e => {
+        const Command = require(`./Commands/Client/${e.replace('.js', '')}`)
+        const commandClass = new Command()
 
-                this.commands[commandClass.commandID] = Command 
-            })
-        })
-    }
+        this.commands[commandClass.commandID] = Command
+      })
+    })
+  }
 
-    handle(id){
-        return this.commands[id]
-    };
+  handle (id) {
+    return this.commands[id]
+  };
 
-    getCommands(){
-        return Object.keys(this.commands)
-    }
-
+  getCommands () {
+    return Object.keys(this.commands)
+  }
 }
 
 module.exports = CommandManager

@@ -43,10 +43,10 @@ class TeamMessage extends PiranhaMessage {
 
         this.writeString(this.player.name)
         this.writeVInt(100)
-        this.writeVInt(28000000)
-        this.writeVInt(43000000)
+        this.writeVInt(28000000 + this.player.thumbnail)
+        this.writeVInt(43000000 + this.player.nameColor)
 
-        this.writeVInt(0) // StarPower. Later on!
+        this.writeDataReference(23, this.player.skills) // StarPower. Later on!
 
         this.writeVInt(0) // InvitationArray
 
