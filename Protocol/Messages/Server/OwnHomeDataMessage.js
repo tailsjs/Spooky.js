@@ -297,8 +297,8 @@ class OwnHomeDataMessage extends PiranhaMessage {
       this.writeVInt(brawler.new ? 1 : 0)
     }
 
-    this.writeVInt(999)
-    this.writeVInt(999)
+    this.writeVInt(this.player.gems)
+    this.writeVInt(this.player.gems)
     this.writeVInt(1)
     this.writeVInt(0)
     this.writeVInt(0)
