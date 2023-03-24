@@ -19,6 +19,7 @@ Simple Brawl Stars private server for version 22 (Halloween update 2019!)<br>
 
 ## Changelogs
 
+* 2023.03.25 - Added Tutorial, SetName states. Improved brawlers section. Did this update on 2 streams: [1st stream](https://www.youtube.com/watch?v=Gb27kGe35xE) [2nd stream](https://youtube.com/live/m6FtACu8sm4)
 * 2023.03.18 - Added offers (displaying, not buying). Added BattleEnd. Added support for skins and star powers. Added feature to change thumbnail and namecolor. Did this update on [stream](https://www.youtube.com/watch?v=j7iIxwlfXeM)
 * 2023.03.17 - Added support for client commands, added PlayerProfile.
 * 2023.03.16 - Fixed OwnHomeData, added prototype of rooms.

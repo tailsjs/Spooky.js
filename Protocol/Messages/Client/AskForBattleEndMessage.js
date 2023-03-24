@@ -42,7 +42,7 @@ class AskForBattleEndMessage extends PiranhaMessage{
             rank: this.rank,
             mapID: this.mapID,
             playerList: this.playerList,
-            battleEndType: this.rank != 0 ? (this.playerList[1].team == this.playerList[0].team ? 5 : 2) : 0
+            battleEndType: this.rank != 0 ? (this.playerList[1].team == this.playerList[0].team ? 5 : 2) : 1
         }
 
         new BattleEndMessage(this.client, this.player, payload).send()

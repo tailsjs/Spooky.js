@@ -6,7 +6,7 @@ const data = parse("./CSVParser/CSV/csv_logic/cards.csv")
 function getBrawlerSkills(skill, id){
     let characterName = Characters.getNameById(id)
 
-    return data.filter(e => e.MetaType == String(skill) && characterName == e.Target).filter(e => data.indexOf(e))
+    return data.filter(e => e.MetaType == String(skill) && characterName == e.Target).map(e => data.indexOf(e))
 }
 
 function getAllBrawlersSkills(skill){
@@ -27,8 +27,13 @@ function getAllSkills(skill){
     return data.filter(e => e.MetaType == String(skill)).map(e => data.indexOf(e))
 }
 
+function getAllBrawlersUnlocks(){
+    return data.filter(e => e.Type == "unlock").map(e => data.indexOf(e))
+}
+
 module.exports = {
     getBrawlerSkills,
     getAllBrawlersSkills,
-    getAllSkills
+    getAllSkills,
+    getAllBrawlersUnlocks
 }

@@ -30,8 +30,10 @@ class OwnHomeDataMessage extends PiranhaMessage {
 
     this.writeVInt(0) // PlayedGamemodesArray
 
-    this.writeVInt(1) // SelectedSkins
-    this.writeDataReference(29, this.player.skin)
+    this.writeVInt(this.player.brawlers.length) // SelectedSkins
+    for (const brawler of this.player.brawlers) {
+      this.writeDataReference(29, brawler.skin)
+    }
 
     this.writeVInt(skins.length) // UnlockedSkins
 
@@ -47,11 +49,11 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(1)
     this.writeBoolean(false)
 
-    this.writeVInt(0)
+    this.writeVInt(this.player.doublers)
     this.writeVInt(1209599)
 
+    this.writeVInt(0) 
     this.writeVInt(0) // ForcedDrops Array
-    this.writeVInt(0)
     this.writeVInt(0)
     this.writeVInt(0) // ForcedDrops Array ends!
 
@@ -105,7 +107,7 @@ class OwnHomeDataMessage extends PiranhaMessage {
 
     this.writeVInt(0)
 
-    this.writeVInt(228) // Tickets
+    this.writeVInt(this.player.tickets) // Tickets
     this.writeVInt(0)
 
     this.writeDataReference(16, this.player.homeBrawler)
@@ -232,67 +234,67 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeLogicLong(0, 0)
 
     this.writeString(this.player.name)
-    this.writeVInt(1)
+    this.writeBoolean(this.player.nameSet)
 
     this.writeString()
 
     this.writeVInt(8)
 
-    this.writeVInt(34)
+    this.writeVInt(this.player.brawlers.length + 4)
 
-    for (const i of this.player.cards) {
-      this.writeDataReference(23, i)
-      this.writeVInt(1)
+    for (const brawler of this.player.brawlers) {
+      this.writeDataReference(23, brawler.cardID)
+      this.writeVInt(brawler.unlocked ? 1 : 0)
     }
 
     this.writeDataReference(5, 1)
-    this.writeVInt(0) // Small Box tokens
+    this.writeVInt(this.player.smallBoxTokens) // Small Box tokens
 
     this.writeDataReference(5, 8)
-    this.writeVInt(666) // Coins
+    this.writeVInt(this.player.coins) // Coins
 
     this.writeDataReference(5, 9)
-    this.writeVInt(0) // Big Box tokens
+    this.writeVInt(this.player.bigBoxTokens) // Big Box tokens
 
     this.writeDataReference(5, 10)
-    this.writeVInt(777) // StarPoints
+    this.writeVInt(this.player.starPoints) // StarPoints
 
-    this.writeVInt(31)
-    for (let i = 0; i < 31; i++) {
-      this.writeDataReference(16, i)
-      this.writeVInt(1250)
+    this.writeVInt(this.player.brawlers.length)
+    for (const brawler of this.player.brawlers) {
+      this.writeDataReference(16, brawler.id)
+      this.writeVInt(brawler.trophies)
     }
 
-    this.writeVInt(31)
-    for (let i = 0; i < 31; i++) {
-      this.writeDataReference(16, i)
-      this.writeVInt(1250)
+    this.writeVInt(this.player.brawlers.length)
+    for (const brawler of this.player.brawlers) {
+      this.writeDataReference(16, brawler.id)
+      this.writeVInt(brawler.highTrophies)
     }
 
     this.writeVInt(0) // UnknownArray
 
-    this.writeVInt(31)
-    for (let i = 0; i < 31; i++) {
-      this.writeDataReference(16, i)
-      this.writeVInt(1410)
+    this.writeVInt(this.player.brawlers.length)
+    for (const brawler of this.player.brawlers) {
+      this.writeDataReference(16, brawler.id)
+      this.writeVInt(brawler.points)
     }
 
-    this.writeVInt(31)
-    for (let i = 0; i < 31; i++) {
-      this.writeDataReference(16, i)
-      this.writeVInt(8)
+    this.writeVInt(this.player.brawlers.length)
+    for (const brawler of this.player.brawlers) {
+      this.writeDataReference(16, brawler.id)
+      this.writeVInt(brawler.level)
     }
 
     this.writeVInt(skills.length)
     for(let skill of skills){
       this.writeDataReference(23, skill)
-      this.writeVInt(1)
+      this.writeVInt(this.player.brawlers[this.player.homeBrawler].skill == skill ? 2 : 1)
     }
 
-    this.writeVInt(31)
-    for (let i = 0; i < 31; i++) {
-      this.writeDataReference(16, i)
-      this.writeVInt(0)
+    this.writeVInt(this.player.brawlers.length)
+    for (const brawler of this.player.brawlers) {
+      this.writeDataReference(16, brawler.id)
+      this.writeVInt(brawler.new ? 1 : 0)
     }
 
     this.writeVInt(999)
@@ -306,7 +308,7 @@ class OwnHomeDataMessage extends PiranhaMessage {
     this.writeVInt(0)
     this.writeVInt(0)
     this.writeVInt(0)
-    this.writeVInt(2)
+    this.writeVInt(this.player.tutorialState)
     this.writeVInt(1585502369)
   }
 }

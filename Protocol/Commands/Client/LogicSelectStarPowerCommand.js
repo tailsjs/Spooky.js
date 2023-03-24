@@ -15,7 +15,7 @@ class LogicSelectStarPowerCommand extends PiranhaMessage{
     }
 
     async process(){
-        this.player.skills = this.skill
+        this.player.brawlers[this.player.homeBrawler].skill = this.skill
 
         if(this.player.team.inTeam){
             new TeamMessage(this.client, this.player).send()

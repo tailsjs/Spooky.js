@@ -9,7 +9,12 @@ function getNameById(id){
     return data[id].Name
 }
 
+function getBrawlersCodenames(){
+    return data.filter(e => e.Type == "Hero").map(e => e.Name)
+}
+
 module.exports = {
     getDefSkinById,
-    getNameById
+    getNameById,
+    getBrawlersCodenames
 }

@@ -27,8 +27,8 @@ class BattleEndMessage extends PiranhaMessage {
     this.writeBoolean(false) // EXP Limit is reached
 
     this.writeBoolean(false) // No more tokens
-    this.writeBoolean(false) // TutorialBattleEnd
-    this.writeBoolean(true) // MatchmakeBattleEnd
+    this.writeBoolean(this.player.tutorialState != 2) // TutorialBattleEnd
+    this.writeBoolean(this.player.tutorialState == 2) // MatchmakeBattleEnd
     this.writeBoolean(false) // TutorialBattleEnd???
 
     this.writeBoolean(false) // PowerPlayBattleEnd
@@ -38,7 +38,7 @@ class BattleEndMessage extends PiranhaMessage {
         let isPlayer = this.payload.playerList.indexOf(player) == 0
         this.writeVInt(isPlayer ? 5 : (this.payload.playerList[0].team == 0 ? (player.team == 0 ? 0 : 2) : (player.team == 0 ? 2 : 0)))
         this.writeDataReference(16, player.brawlerID)
-        isPlayer ? this.writeDataReference(29, this.player.skin) : this.writeVInt(0)
+        isPlayer ? this.writeDataReference(29, this.player.brawlers[this.player.homeBrawler].skin) : this.writeVInt(0)
 
         this.writeVInt(1250)
         this.writeVInt(1250)
@@ -73,6 +73,10 @@ class BattleEndMessage extends PiranhaMessage {
     this.writeVInt(0)
     this.writeInt(0)
     this.writeInt(0)
+
+    if(this.player.tutorialState != 2){
+      this.player.tutorialState = 2
+    }
   }
 }
 

@@ -29,7 +29,7 @@ class TeamMessage extends PiranhaMessage {
         this.writeLong(0, this.player.lowID)
 
         this.writeDataReference(16, this.player.homeBrawler)
-        this.writeDataReference(29, this.player.skin) // Skin
+        this.writeDataReference(29, this.player.brawlers[this.player.homeBrawler].skin) // Skin
 
         this.writeVInt(1250)
         this.writeVInt(1250)
@@ -46,7 +46,7 @@ class TeamMessage extends PiranhaMessage {
         this.writeVInt(28000000 + this.player.thumbnail)
         this.writeVInt(43000000 + this.player.nameColor)
 
-        this.writeDataReference(23, this.player.skills) // StarPower. Later on!
+        this.writeDataReference(23, this.player.brawlers[this.player.homeBrawler].skill) // StarPower. Later on!
 
         this.writeVInt(0) // InvitationArray
 

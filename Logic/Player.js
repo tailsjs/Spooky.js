@@ -1,3 +1,8 @@
+const Skins = require("../CSVParser/Skins")
+const Cards = require("../CSVParser/Cards")
+const DefaultSkins = Skins.getDefaultSkins()
+const UnlockCards = Cards.getAllBrawlersUnlocks()
+
 class Player {
     lowID = 1
     token = "ISwearThisTokenIsGood"
@@ -9,11 +14,20 @@ class Player {
         mapID: 0
     }
     skin = 0
-    skills = 76
+    coins = 666
+    smallBoxTokens = 0
+    bigBoxTokens = 0
+    starPoints = 777
+    gems = 999
+    doublers = 1337
+    tickets = 228
     thumbnail = 45
     nameColor = 10
     themeId = 8
     authorCode = 't.me/projectsurge'
+
+    tutorialState = 2
+    nameSet = this.tutorialState == 2
 
     offers = [
         {
@@ -33,6 +47,8 @@ class Player {
             ]
         }
     ]
+
+    brawlers = []
 
     maps = [ // le tailed laziness gets in the way put it into other class :upside_down:
         {
@@ -76,7 +92,21 @@ class Player {
     latency = 0
 
     constructor(){
-        
+        for(let i = 0; i < 32; i++){
+            this.brawlers.push({
+                id: i,
+                cardID: UnlockCards[i],
+                unlocked: true,
+                skill: Cards.getBrawlerSkills(4, i)[0],
+                level: 8,
+                points: 1410,
+                trophies: 1250,
+                highTrophies: 1250,
+                skin: DefaultSkins[i],
+                new: false
+            })
+        }
+        console.log(this.brawlers)
     }
 }
 

@@ -15,7 +15,7 @@ class LogicSelectSkinCommand extends PiranhaMessage{
     }
 
     async process(){
-        this.player.skin = this.skin
+        this.player.brawlers[this.player.homeBrawler].skin = this.skin
 
         if(this.player.team.inTeam){
             new TeamMessage(this.client, this.player).send()
